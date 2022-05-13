@@ -15,10 +15,13 @@ export default function PlaceForm() {
     <ScrollView>
       <View style={styles.form}>
         <Text style={styles.label}>Title</Text>
-        <TextInput style={styles.input} onChangeText={changeTitleHandler} value={enteredTitle} />
+        <TextInput
+          style={styles.input}
+          onChangeText={changeTitleHandler}
+          value={enteredTitle}
+        />
+        <ImagePicker />
       </View>
-
-      <ImagePicker />
     </ScrollView>
   );
 }
@@ -29,17 +32,17 @@ const styles = StyleSheet.create({
     padding: 24,
   },
   label: {
-      fontWeight: 'bold',
-      marginBottom: 4,
-      color: Colors.primary500,
+    fontWeight: "bold",
+    marginBottom: 4,
+    color: Colors.primary500,
   },
   input: {
-      marginVertical: 8,
-      paddingHorizontal: 4,
-      paddingVertical: 8,
-      fontSize: 16,
-      borderBottomColor: Colors.primary700,
-      borderBottomWidth: 2,
-      backgroundColor: Colors.primary100
+    marginVertical: 8,
+    paddingHorizontal: 4,
+    paddingVertical: 8,
+    fontSize: 16,
+    borderBottomColor: Colors.primary700,
+    borderBottomWidth: 2,
+    backgroundColor: Colors.primary100,
   },
 });
