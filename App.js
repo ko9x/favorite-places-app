@@ -8,6 +8,7 @@ import { TouchableOpacity } from "react-native";
 import AllPlaces from "./screens/AllPlaces";
 import AddPlace from "./screens/AddPlace";
 import IconButton from "./components/ui/IconButton";
+import { Colors } from "./constants/Colors";
 
 const Stack = createNativeStackNavigator();
 
@@ -16,11 +17,18 @@ export default function App() {
     <>
       <StatusBar style="auto" />
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator
+          screenOptions={{
+            headerStyle: { backgroundColor: Colors.primary500 },
+            headerTintColor: Colors.gray700,
+            contentStyle: { backgroundColor: Colors.gray700 }
+          }}
+        >
           <Stack.Screen
             name="AllPlaces"
             component={AllPlaces}
             options={({ navigation }) => ({
+              title: "Your Favorite Places",
               headerRight: ({ tintColor }) => (
                 <IconButton
                   icon="add"
@@ -33,22 +41,15 @@ export default function App() {
               ),
             })}
           />
-          <Stack.Screen name="AddPlace" component={AddPlace} />
+          <Stack.Screen
+            name="AddPlace"
+            component={AddPlace}
+            options={{
+              title: "Add a new Place",
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </>
   );
 }
-
-// options={({ navigation }) => ({
-//   headerRight: ({ tintColor }) => (
-//     <IconButton
-//       icon="add"
-//       size={32}
-//       color={tintColor}
-//       onPress={() => {
-//         navigation.navigate("AddPlace");
-//       }}
-//     />
-//   ),
-// })}
