@@ -18,15 +18,20 @@ export default function PlacesList({ places }) {
     return <PlaceItem place={item} />;
   }
 
-  return;
-  <FlatList
-    data={places}
-    renderItem={renderItems}
-    keyExtractor={(item) => item.id}
-  />;
+  return (
+    <FlatList
+    style={styles.list}
+      data={places}
+      renderItem={renderItems}
+      keyExtractor={(item) => item.id}
+    />
+  );
 }
 
 const styles = StyleSheet.create({
+  list: {
+    margin: 18
+  },
   fallbackContainer: {
     flex: 1,
     justifyContent: "center",
@@ -34,6 +39,6 @@ const styles = StyleSheet.create({
   },
   fallbackText: {
     fontSize: 16,
-    color: Colors.primary200
+    color: Colors.primary200,
   },
 });
