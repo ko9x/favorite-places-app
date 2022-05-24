@@ -3,10 +3,11 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, Button } from "react-native";
 
 import AllPlaces from "./screens/AllPlaces";
 import AddPlace from "./screens/AddPlace";
+import Map from "./screens/Map";
 import IconButton from "./components/ui/IconButton";
 import { Colors } from "./constants/Colors";
 
@@ -47,6 +48,10 @@ export default function App() {
             options={{
               title: "Add a new Place",
             }}
+          />
+          <Stack.Screen
+          name="Map"
+          component={Map}
           />
         </Stack.Navigator>
       </NavigationContainer>
