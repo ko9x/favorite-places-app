@@ -4,17 +4,46 @@ import {
   PermissionStatus,
 } from "expo-location";
 import { View, StyleSheet, Alert, Text, Image } from "react-native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { Colors } from "../../constants/Colors";
 import OutlinedButton from "../ui/OutlinedButton";
-import getMapPreview from "../../util/locations";
+import { getMapPreview, getAddress } from "../../util/locations";
+import {
+  NavigationHelpersContext,
+  useNavigation,
+  useRoute,
+  useIsFocused,
+} from "@react-navigation/native";
 
-export default function LocationPicker() {
-  const [pickedLocation, setPickedLocation] = useState(null);
-
+export default function LocationPicker({ onSetLocation }) {
+  const [pickedLocation, setPickedLocation] = useState();
   const [locationPermissionInformation, requestPermission] =
     useForegroundPermissions();
+  const navigation = useNavigation();
+  const route = useRoute();
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (isFocused && route.params) {
+      const { location } = route.params;
+      setPickedLocation(location);
+    }
+  }, [isFocused, route.params]);
+
+  useEffect(() => {
+    async function handleLocation() {
+      if (pickedLocation) {
+        const address = await getAddress(
+          pickedLocation.lat,
+          pickedLocation.lng
+        );
+        onSetLocation({...pickedLocation, address: address});
+      }
+    }
+
+    handleLocation();
+  }, [pickedLocation, onSetLocation]);
 
   async function verifyPermissions() {
     if (
@@ -49,7 +78,9 @@ export default function LocationPicker() {
     });
   }
 
-  function pickOnMapHandler() {}
+  function pickOnMapHandler() {
+    navigation.navigate("Map");
+  }
 
   let locationPreview = <Text>No location picked yet.</Text>;
 
@@ -95,6 +126,6 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     height: "100%",
-    borderRadius: 4
+    borderRadius: 4,
   },
 });

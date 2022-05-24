@@ -9,7 +9,7 @@ import { View, Alert, Image, Text, StyleSheet } from "react-native";
 import { Colors } from '../../constants/Colors';
 import OutlinedButton from '../ui/OutlinedButton';
 
-export default function ImagePicker() {
+export default function ImagePicker({onSetImage}) {
     const [currentImage, setCurrentImage] = useState();
   const [cameraPermissionInformation, requestPermission] =
     useCameraPermissions();
@@ -38,8 +38,8 @@ export default function ImagePicker() {
       aspect: [16, 9],
       quality: 0.5,
     });
-    console.log('image', image)
     setCurrentImage(image.uri);
+    onSetImage(image.uri);
   }
 
   let imagePreview = <Text>No image taken yet.</Text>
@@ -71,5 +71,6 @@ const styles = StyleSheet.create({
     image: {
         width: '100%',
         height: '100%',
+        borderRadius: 4,
     }
 })
