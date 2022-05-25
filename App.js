@@ -8,6 +8,7 @@ import { TouchableOpacity, Button } from "react-native";
 import AllPlaces from "./screens/AllPlaces";
 import AddPlace from "./screens/AddPlace";
 import Map from "./screens/Map";
+import PlaceDetails from "./screens/PlaceDetails";
 import IconButton from "./components/ui/IconButton";
 import { Colors } from "./constants/Colors";
 import { useEffect, useState } from "react";
@@ -74,6 +75,10 @@ export default function App() {
           <Stack.Screen
           name="Map"
           component={Map}
+          />
+          <Stack.Screen
+            name="PlaceDetails"
+            component={PlaceDetails}
           />
         </Stack.Navigator>
       </NavigationContainer>

@@ -12,10 +12,10 @@ export default function AllPlaces() {
     if (isFocused) {
       fetchPlaces()
         .then((result) => {
-          setPlaces(result.rows._array);
+          setPlaces(result);
         })
         .catch((error) => {
-          console.log("error", error); //@DEBUG
+          console.log("error", error); //@HANDLE ERROR
         });
     }
   }, [isFocused]);
