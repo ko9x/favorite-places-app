@@ -3,13 +3,16 @@ import { Colors } from "../../constants/Colors";
 
 export default function PlaceItem({ place, onSelect }) {
   return (
-    <Pressable style={({pressed}) => [styles.item, pressed && styles.pressed]} onPress={() => {
-      onSelect(place.id)
-    }}>
-      <Image  style={styles.image} source={{ uri: place.imageUri }} />
+    <Pressable
+      style={({ pressed }) => [styles.item, pressed && styles.pressed]}
+      onPress={() => {
+        onSelect(place.id);
+      }}
+    >
+      <Image style={styles.image} source={{ uri: place.imageUri }} />
       <View style={styles.info}>
-        <Text style={styles.title} >{place.title}</Text>
-        <Text style={styles.address} >{place.address}</Text>
+        <Text style={styles.title}>{place.title}</Text>
+        <Text style={styles.address}>{place.address}</Text>
       </View>
     </Pressable>
   );
@@ -29,7 +32,7 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
   },
   pressed: {
-    opacity: 0.9
+    opacity: 0.9,
   },
   image: {
     flex: 1,
@@ -42,10 +45,9 @@ const styles = StyleSheet.create({
     padding: 12,
   },
   title: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 18,
     color: Colors.gray700,
-
   },
   address: {
     fontSize: 12,

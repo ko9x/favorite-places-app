@@ -88,7 +88,7 @@ export function fetchPlace(placeId) {
   const promise = new Promise((resolve, reject) => {
     database.transaction((tx) => {
       tx.executeSql(
-        "SELECT * FROM places Where ID = ?",
+        "SELECT * FROM places Where id = ?",
         [placeId],
         (_, result) => {
             const p = result.rows._array[0];
