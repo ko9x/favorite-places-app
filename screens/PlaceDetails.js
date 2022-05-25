@@ -5,7 +5,7 @@ import { fetchPlace } from "../util/database";
 import OutlinedButton from "../components/ui/OutlinedButton";
 import { Colors } from "../constants/Colors";
 
-export default function PlaceDetails({ route }) {
+export default function PlaceDetails({ route, navigation }) {
   const [place, setPlace] = useState();
   function showOnMapHandler() {}
 
@@ -15,9 +15,18 @@ export default function PlaceDetails({ route }) {
     fetchPlace(selectedPlaceId)
       .then((result) => {
         setPlace(result);
+        navigation.setOptions({
+            headerTitle: result.title
+        })
       })
-      .catch((error) => {});
-  }, []);
+      .catch((error) => {
+          console.log('error', error); //@HANDLE ERROR
+      });
+  }, [selectedPlaceId]);
+
+  if (!place) {
+    return <Text>Loading</Text>;
+  }
 
   return (
     <ScrollView>

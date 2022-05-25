@@ -79,6 +79,9 @@ export default function App() {
           <Stack.Screen
             name="PlaceDetails"
             component={PlaceDetails}
+            options={{
+              title: 'Loading'
+            }}
           />
         </Stack.Navigator>
       </NavigationContainer>
