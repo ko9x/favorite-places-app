@@ -10,13 +10,15 @@ export default function AllPlaces() {
 
   useEffect(() => {
     if (isFocused) {
-      fetchPlaces().then((result) => {
-        setPlaces(result.rows._array);
-      }).catch((error) => {
-        console.log('error', error); //@DEBUG
-      });
+      fetchPlaces()
+        .then((result) => {
+          setPlaces(result.rows._array);
+        })
+        .catch((error) => {
+          console.log("error", error); //@DEBUG
+        });
     }
   }, [isFocused]);
 
-  return <PlacesList places={places}/>;
+  return <PlacesList places={places} />;
 }

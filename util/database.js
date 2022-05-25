@@ -60,10 +60,10 @@ export function fetchPlaces() {
         "SELECT * FROM places",
         [],
         (_, result) => {
-            resolve(result)
+          resolve(result);
         },
         (_, error) => {
-            reject(error);
+          reject(error);
         }
       );
     });
