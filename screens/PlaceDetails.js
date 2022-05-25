@@ -16,16 +16,20 @@ export default function PlaceDetails({ route, navigation }) {
       .then((result) => {
         setPlace(result);
         navigation.setOptions({
-            headerTitle: result.title
-        })
+          headerTitle: result.title,
+        });
       })
       .catch((error) => {
-          console.log('error', error); //@HANDLE ERROR
+        console.log("error", error); //@HANDLE ERROR
       });
   }, [selectedPlaceId]);
 
   if (!place) {
-    return <Text>Loading</Text>;
+    return (
+      <View style={styles.fallback}>
+        <Text>Loading</Text>
+      </View>
+    );
   }
 
   return (
@@ -44,6 +48,11 @@ export default function PlaceDetails({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
+  fallback: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   image: {
     height: "35%",
     minHeight: 300,
