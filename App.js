@@ -29,7 +29,7 @@ export default function App() {
     init().then(() => {
       setDbInitialized(true);
     }).catch((error) => {
-      console.log('error', error)
+      console.log('error', error) //@HANDLE ERROR
     });
   }, []);
 

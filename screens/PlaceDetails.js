@@ -7,7 +7,9 @@ import { Colors } from "../constants/Colors";
 
 export default function PlaceDetails({ route, navigation }) {
   const [place, setPlace] = useState();
-  function showOnMapHandler() {}
+  function showOnMapHandler() {
+    navigation.navigate('Map', {favoritePlace: place})
+  }
 
   const selectedPlaceId = route.params.placeId;
 
