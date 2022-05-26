@@ -25,7 +25,7 @@ export default function PlaceForm({onAddPlace}) {
   }, []);
 
   function savePlaceHandler() {
-    const place = new Place(enteredTitle, image, location)
+    const place = new Place({id: null}, enteredTitle, image, location);
     onAddPlace(place);
   };
 
