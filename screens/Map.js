@@ -5,31 +5,26 @@ import { StyleSheet, Text, View } from "react-native";
 import IconButton from "../components/ui/IconButton";
 
 export default function Map({ navigation, route }) {
-  const favoritePlace = route.params && route.params.favoritePlace;
-  const [selectedLocation, setSelectedLocation] = useState(null);
-  const [region, setRegion] = useState();
-  const defaultRegion = {
-    latitude: 37.78,
-    longitude: -122.43,
+  const placeTitle = route.params && route.params.favoritePlace.title;
+  const initialLocation = route.params && {
+    lat: route.params.favoritePlace.location.lat,
+    lng: route.params.favoritePlace.location.lng,
+  };
+  const [selectedLocation, setSelectedLocation] = useState(initialLocation);
+  const region = {
+    latitude: initialLocation ? initialLocation.lat : 37.78,
+    longitude: initialLocation ? initialLocation.lng : -122.43,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   };
 
   useLayoutEffect(() => {
-    if (favoritePlace) {
-      setRegion(() => ({
-        latitude: favoritePlace.location.lat,
-        longitude: favoritePlace.location.lng,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
-      }));
+    if (placeTitle) {
       navigation.setOptions({
-        headerTitle: favoritePlace.title,
+        headerTitle: placeTitle,
       });
+      return;
     }
-  }, [favoritePlace, route]);
-
-  useLayoutEffect(() => {
     if (selectedLocation) {
       navigation.setOptions({
         headerRight: ({ tintColor }) => (
@@ -44,10 +39,10 @@ export default function Map({ navigation, route }) {
         ),
       });
     }
-  }, [navigation, selectedLocation]);
+  }, [navigation, selectedLocation, placeTitle]);
 
   function selectLocationHandler(event) {
-    if (!favoritePlace) {
+    if (!placeTitle) {
       const lat = event.nativeEvent.coordinate.latitude;
       const lng = event.nativeEvent.coordinate.longitude;
 
@@ -58,18 +53,6 @@ export default function Map({ navigation, route }) {
     }
   }
 
-  if (!region && favoritePlace) {
-    return (
-      <View style={styles.fallback}>
-        <Text style={styles.fallbackText}>Loading...</Text>
-      </View>
-    );
-  }
-
-  if (!region && !favoritePlace) {
-    setRegion(defaultRegion);
-  }
-
   return (
     <MapView
       style={styles.map}
@@ -78,19 +61,10 @@ export default function Map({ navigation, route }) {
     >
       {selectedLocation && (
         <Marker
-          title="Picked Location"
+          title={placeTitle ? placeTitle : "Picked Location"}
           coordinate={{
             latitude: selectedLocation.lat,
             longitude: selectedLocation.lng,
-          }}
-        />
-      )}
-      {favoritePlace && (
-        <Marker
-          title={favoritePlace.title}
-          coordinate={{
-            latitude: favoritePlace.location.lat,
-            longitude: favoritePlace.location.lng,
           }}
         />
       )}
@@ -99,12 +73,6 @@ export default function Map({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
-  fallback: {
-    alignItems: "center",
-  },
-  fallbackText: {
-    color: "white",
-  },
   map: {
     flex: 1,
   },
